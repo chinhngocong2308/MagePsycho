@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   MagePsycho
+ * @package    MagePsycho_RegionCityPro
+ * @author     Raj KB <magepsycho@gmail.com>
+ * @website    https://www.magepsycho.com
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Api -->
+    <preference for="MagePsycho\RegionCityPro\Api\Data\CityInterface"
+                type="MagePsycho\RegionCityPro\Model\City" />
+    <preference for="MagePsycho\RegionCityPro\Api\CityRepositoryInterface"
+                type="MagePsycho\RegionCityPro\Model\CityRepository" />
+    <preference for="MagePsycho\RegionCityPro\Api\Data\CitySearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Logger -->
+    <type name="MagePsycho\RegionCityPro\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="MagePsycho\RegionCityPro\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">MagePsychoRegionCityProLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">MagePsycho\RegionCityPro\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- UI Component Data Source & Provider -->
+    <!-- @todo -->
+    <!--<type name="MagePsycho\RegionCityPro\Ui\Component\RegionDataProvider">
+        <arguments>
+            <argument name="additionalFilterPool" xsi:type="array">
+                <item name="fulltext" xsi:type="object">Magento\Cms\Ui\Component\Page\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </type>-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="regioncitypro_region_listing_data_source" xsi:type="string">MagePsycho\RegionCityPro\Model\ResourceModel\Region\Grid\Collection</item>
+                <item name="regioncitypro_city_listing_data_source" xsi:type="string">MagePsycho\RegionCityPro\Model\ResourceModel\City\Grid\Collection</item>
+                <item name="regioncitypro_sub_district_listing_data_source" xsi:type="string">MagePsycho\RegionCityPro\Model\ResourceModel\SubDistrict\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MagePsycho\RegionCityPro\Model\ResourceModel\Region\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">directory_country_region</argument>
+            <argument name="eventPrefix" xsi:type="string">directory_country_region_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">directory_country_region_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Directory\Model\ResourceModel\Region</argument>
+        </arguments>
+    </type>
+    <type name="MagePsycho\RegionCityPro\Model\ResourceModel\City\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">directory_country_region_city</argument>
+            <argument name="eventPrefix" xsi:type="string">directory_country_region_city_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">directory_country_region_city_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MagePsycho\RegionCityPro\Model\ResourceModel\City</argument>
+        </arguments>
+    </type>
+    <type name="MagePsycho\RegionCityPro\Model\ResourceModel\SubDistrict\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">directory_city_sub_district</argument>
+            <argument name="eventPrefix" xsi:type="string">directory_city_sub_district_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">directory_city_sub_district_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MagePsycho\RegionCityPro\Model\ResourceModel\SubDistrict</argument>
+        </arguments>
+    </type>
+
+    <!-- custom field injection in checkout -->
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Block_Checkout_LayoutProcessorPlugin" sortOrder="1"
+                type="MagePsycho\RegionCityPro\Plugin\Block\Checkout\LayoutProcessorPlugin" />
+    </type>
+    <type name="Magento\Checkout\Block\Checkout\DirectoryDataProcessor">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Block_Checkout_DirectoryDataProcessorPlugin" sortOrder="1"
+                type="MagePsycho\RegionCityPro\Plugin\Block\Checkout\DirectoryDataProcessorPlugin" />
+    </type>
+
+    <!-- convert extension attribute to object level -->
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Model_Checkout_ShippingInformationManagementPlugin" sortOrder="1"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Checkout\ShippingInformationManagementPlugin" />
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Model_Checkout_PaymentInformationManagementPlugin" sortOrder="1"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Checkout\PaymentInformationManagementPlugin" />
+    </type>
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+        <plugin name="MagePsycho_RegionCityPro_Magento_Quote_Model_GuestPaymentInformationManagementPlugin" sortOrder="1"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Checkout\GuestPaymentInformationManagementPlugin" />
+    </type>
+
+    <!-- convert quote to customer address -->
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Model_Quote_AddressPlugin"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Quote\AddressPlugin" />
+    </type>
+
+    <!-- convert quote to order address -->
+    <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Model_Quote_Address_ToOrderAddressPlugin"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Quote\Address\ToOrderAddressPlugin" />
+    </type>
+
+    <!-- set city locale name -->
+    <type name="Magento\Customer\Model\Address">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Model_Customer_Address_SetCityPlugin"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Customer\Address\SetCityPlugin" sortOrder="10" />
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Model_Customer_Address_SetSubDistrictPlugin"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Customer\Address\SetSubDistrictPlugin" sortOrder="20" />
+    </type>
+
+    <!-- inject city id during guest to customer conversion -->
+    <type name="Magento\Customer\Model\Delegation\Storage">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Model_Customer_Delegation_InjectCityIdPlugin"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Customer\Delegation\InjectCityIdPlugin" />
+    </type>
+
+    <!-- Import validators -->
+    <type name="MagePsycho\RegionCityPro\Model\Import\Region\Validator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="country" xsi:type="object">MagePsycho\RegionCityPro\Model\Import\Region\Validator\Country</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MagePsycho\RegionCityPro\Model\Import\City\Validator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="region" xsi:type="object">MagePsycho\RegionCityPro\Model\Import\City\Validator\Region</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Import sample files -->
+    <type name="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="mp_directory_region" xsi:type="string">MagePsycho_RegionCityPro</item>
+                <item name="mp_directory_city" xsi:type="string">MagePsycho_RegionCityPro</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

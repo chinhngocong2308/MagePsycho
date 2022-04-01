@@ -1,0 +1,33 @@
+/* select2 customized for luma theme */
+/* you can override this file if you want to customize the look and field of the select 2 dropdown */
+.select2-container--default .select2-selection--single {
+    background: #fff url(../../images/select-bg.svg) no-repeat 100% 45%;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 32px;
+    line-height: 1.428571429;
+    padding: 4px 25px 5px 10px;
+    vertical-align: baseline;
+    width: 100%;
+    box-sizing: border-box;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #000;
+    line-height: 22px;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0;
+    padding-right: 0;
+}
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #000;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    display: none;
+}
+.select2-results__option {
+    margin-bottom: 0;
+}

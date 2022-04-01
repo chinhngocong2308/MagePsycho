@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   MagePsycho
+ * @package    MagePsycho_RegionCityPro
+ * @author     Raj KB <magepsycho@gmail.com>
+ * @website    https://www.magepsycho.com
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+
+        <!-- Menu Group -->
+        <add id="MagePsycho_RegionCityPro::menu_section" title="Region &amp; City Manager" module="MagePsycho_RegionCityPro" sortOrder="110" parent="Magento_Backend::stores" resource="MagePsycho_RegionCityPro::menu_section"/>
+
+        <!-- Child Menus -->
+        <add id="MagePsycho_RegionCityPro::region" title="Manage Regions" module="MagePsycho_RegionCityPro" parent="MagePsycho_RegionCityPro::menu_section"
+             sortOrder="20" resource="MagePsycho_RegionCityPro::region" action="regioncitypro/region"/>
+        <add id="MagePsycho_RegionCityPro::city" title="Manage Cities" module="MagePsycho_RegionCityPro" parent="MagePsycho_RegionCityPro::menu_section"
+             sortOrder="30" resource="MagePsycho_RegionCityPro::city" action="regioncitypro/city" />
+        <add id="MagePsycho_RegionCityPro::sub_district" title="Manage Sub Districts" module="MagePsycho_RegionCityPro" parent="MagePsycho_RegionCityPro::menu_section"
+             sortOrder="35" resource="MagePsycho_RegionCityPro::sub_district" action="regioncitypro/sub_district" />
+        <add id="MagePsycho_RegionCityPro::config" title="Manage Settings" module="MagePsycho_RegionCityPro" parent="MagePsycho_RegionCityPro::menu_section"
+             sortOrder="40" resource="MagePsycho_RegionCityPro::config" action="adminhtml/system_config/edit/section/magepsycho_regioncitypro" />
+
+    </menu>
+</config>

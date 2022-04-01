@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   MagePsycho
+ * @package    MagePsycho_RegionCityPro
+ * @author     Raj KB <magepsycho@gmail.com>
+ * @website    https://www.magepsycho.com
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Adminhtml\Order\Create\Form\Address">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_Sales_Adminhtml_Order_Create_Form_AddressPlugin" sortOrder="1"
+                type="MagePsycho\RegionCityPro\Plugin\Block\Sales\Adminhtml\Order\Create\Form\AddressPlugin" />
+    </type>
+    <type name="Magento\Sales\Model\AdminOrder\Create">
+        <plugin name="MagePsycho_Region_City_Pro_Plugin_Model_Sales_Admin_Order_Create_Plugin" disabled="false"
+                type="MagePsycho\RegionCityPro\Plugin\Model\Sales\AdminOrder\CreatePlugin" />
+    </type>
+
+    <!-- Change sorting of City field -->
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Create\Shipping\Address"
+                type="MagePsycho\RegionCityPro\Block\Adminhtml\Preference\Sales\Order\Create\Shipping\Address" />
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Create\Billing\Address"
+                type="MagePsycho\RegionCityPro\Block\Adminhtml\Preference\Sales\Order\Create\Billing\Address" />
+
+    <!-- Add region/city locales to the grid -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="MagePsycho_RegionCityPro_Plugin_View_Element_UiComponent_DataProvider_CollectionFactory_AddRegionLocaleNamePlugin"
+                type="MagePsycho\RegionCityPro\Plugin\View\Element\UiComponent\DataProvider\CollectionFactory\AddRegionLocaleNamePlugin"
+                sortOrder="10"
+                disabled="false" />
+        <plugin name="MagePsycho_RegionCityPro_Plugin_View_Element_UiComponent_DataProvider_CollectionFactory_AddCityLocaleNamePlugin"
+                type="MagePsycho\RegionCityPro\Plugin\View\Element\UiComponent\DataProvider\CollectionFactory\AddCityLocaleNamePlugin"
+                sortOrder="20"
+                disabled="false" />
+        <plugin name="MagePsycho_RegionCityPro_Plugin_View_Element_UiComponent_DataProvider_CollectionFactory_AddSubDistrictLocaleNamePlugin"
+                type="MagePsycho\RegionCityPro\Plugin\View\Element\UiComponent\DataProvider\CollectionFactory\AddSubDistrictLocaleNamePlugin"
+                sortOrder="30"
+                disabled="false" />
+    </type>
+
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="magepsychoRegionCityProComplexMessage" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">MagePsycho_RegionCityPro::messages/license.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

@@ -1,0 +1,19 @@
+<?php
+/** @var $block \Magento\Backend\Block\Template */
+?>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        'prototype'
+    ], function(jQuery, alert) {
+//<![CDATA[
+    jQuery(function() {
+        var entity = '<?= $block->escapeJs($block->getRequest()->getParam('entity')) ?>';
+        if (entity =='mp_directory_region' || entity =='mp_directory_city') {
+            jQuery('#entity').val(entity).change();
+        }
+    });
+//]]>
+    });
+</script>

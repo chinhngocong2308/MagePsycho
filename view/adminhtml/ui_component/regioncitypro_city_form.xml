@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @category   MagePsycho
+ * @package    MagePsycho_RegionCityPro
+ * @author     Raj KB <magepsycho@gmail.com>
+ * @website    https://www.magepsycho.com
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">regioncitypro_city_form.regioncitypro_city_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="save_and_continue" class="MagePsycho\RegionCityPro\Block\Adminhtml\City\Edit\SaveAndContinueButton"/>
+            <button name="save" class="MagePsycho\RegionCityPro\Block\Adminhtml\City\Edit\SaveButton"/>
+            <button name="delete" class="MagePsycho\RegionCityPro\Block\Adminhtml\City\Edit\DeleteButton"/>
+            <button name="back" class="MagePsycho\RegionCityPro\Block\Adminhtml\City\Edit\BackButton"/>
+        </buttons>
+        <namespace>regioncitypro_city_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>regioncitypro_city_form.regioncitypro_city_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="regioncitypro_city_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="regioncitypro/city/save"/>
+        </settings>
+        <dataProvider class="MagePsycho\RegionCityPro\Ui\Model\CityDataProvider" name="regioncitypro_city_form_data_source">
+            <settings>
+                <requestFieldName>city_id</requestFieldName>
+                <primaryFieldName>city_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label translate="true">City Information</label>
+        </settings>
+        <field name="country_id" formElement="select" component="Magento_Ui/js/form/element/ui-select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">country_id</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">false</item>
+                    <item name="showCheckbox" xsi:type="boolean">false</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <elementTmpl>ui/grid/filters/elements/ui-select</elementTmpl>
+                <label translate="true">Country</label>
+                <dataType>text</dataType>
+                <dataScope>country_id</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="MagePsycho\RegionCityPro\Ui\Model\ExtendedCountryCollection"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="region_id" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">region_id</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <label translate="true">Region</label>
+                <dataType>text</dataType>
+                <dataScope>region_id</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Directory\Model\ResourceModel\Region\Collection"/>
+                        <filterBy>
+                            <field>country_id</field>
+                            <target>${ $.provider }:${ $.parentScope }.country_id</target>
+                        </filterBy>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="code" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">code</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Code</label>
+                <dataScope>code</dataScope>
+            </settings>
+        </field>
+        <field name="default_name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">default_name</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Default Name</label>
+                <dataScope>default_name</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="city_locales" class="MagePsycho\RegionCityPro\Ui\Component\Form\Locale\CityFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Locale Specific Names</item>
+                <item name="sortOrder" xsi:type="number">1000</item>
+            </item>
+        </argument>
+    </fieldset>
+</form>

@@ -1,0 +1,52 @@
+<?php
+/** @var \MagePsycho\RegionCityPro\Block\Customer\Address\Edit\Js $block */
+?>
+<script>
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            var cityIdHtml = '<select id="city_id" name="city_id" title="<?= $block->escapeHtmlAttr(__('City')) ?>" class="validate-select" style="display: none;"><option value=""><?= $block->escapeHtml(__('Please select a city.')) ?></option></select>';
+            $('#city').before(cityIdHtml);
+
+            var subDistrictHtml = '<div class="field sub_district required">';
+            subDistrictHtml += '<label class="label" for="sub_district"><span><?= $block->escapeHtmlAttr(__('Sub District')) ?></span></label>';
+            subDistrictHtml += '<div class="control">';
+            subDistrictHtml += '<select id="sub_district_id" name="sub_district_id" title="<?= $block->escapeHtmlAttr(__('Sub District')) ?>" class="validate-select" style="display: none;"><option value=""><?= $block->escapeHtml(__('Please select a sub district.')) ?></option></select>';
+            subDistrictHtml += '<input type="text" name="sub_district" id="sub_district" value="<?= $escaper->escapeHtmlAttr($block->getSubDistrict()) ?>" title="<?= $escaper->escapeHtmlAttr(__('Sub District')) ?>" class="input-text required-entry">';
+            subDistrictHtml += '</div>';
+            subDistrictHtml += '</div>';
+            $('div.field.city').after(subDistrictHtml);
+        });
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "#region_id": {
+            "cityUpdater": {
+                "isActive": <?= /* @noEscape */ $block->isActive() ? 'true' : 'false' ?>,
+                "isCitySearchable": <?= (int) $block->isCitySearchable() ?>,
+                "countryListId": "#country",
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "cityListId": "#city_id",
+                "cityInputId": "#city",
+                "defaultCityId": "<?= (int) $block->getCityId() ?>",
+                "cityJson" : <?= /* @noEscape */ $block->getCityJson() ?>
+            }
+        },
+        "#city_id": {
+            "subDistrictUpdater": {
+                "isActive": <?= /* @noEscape */ $block->isActive() ? 'true' : 'false' ?>,
+                "isSubDistrictSearchable": <?= (int) $block->isSubDistrictSearchable() ?>,
+                "countryListId": "#country",
+                "regionListId": "#region_id",
+                "cityListId": "#city_id",
+                "cityInputId": "#city",
+                "subDistrictListId": "#sub_district_id",
+                "subDistrictInputId": "#sub_district",
+                "defaultSubDistrictId": "<?= (int) $block->getSubDistrictId() ?>",
+                "subDistrictJson" : <?= /* @noEscape */ $block->getSubDistrictJson() ?>,
+                "postcodeInputId": "#zip"
+            }
+        }
+    }
+</script>

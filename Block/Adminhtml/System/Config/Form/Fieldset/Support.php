@@ -1,0 +1,76 @@
+<?php
+
+namespace MagePsycho\RegionCityPro\Block\Adminhtml\System\Config\Form\Fieldset;
+
+use Magento\Framework\Data\Form\Element\Renderer\RendererInterface;
+
+/**
+ * @category   MagePsycho
+ * @package    MagePsycho_RegionCityPro
+ * @author     Raj KB <magepsycho@gmail.com>
+ * @website    https://www.magepsycho.com
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+class Support extends \Magento\Backend\Block\Template implements RendererInterface
+{
+    /**
+     * @var string
+     */
+    protected $_template = 'MagePsycho_RegionCityPro::system/config/form/fieldset/support.phtml';
+
+    /**
+     * @var \Magento\Framework\App\ProductMetadataInterface
+     */
+    protected $_metaData;
+
+    /**
+     * @var \Magento\Framework\Module\ModuleList\Loader
+     */
+    protected $_loader;
+
+    public function __construct(
+        \Magento\Backend\Block\Template\Context $context,
+        \Magento\Framework\App\ProductMetadataInterface $productMetaData,
+        \Magento\Framework\Module\ModuleList\Loader $loader,
+        array $data = []
+    ) {
+        parent::__construct($context, $data);
+        $this->_metaData = $productMetaData;
+        $this->_loader = $loader;
+    }
+
+    /**
+     * @param \Magento\Framework\Data\Form\Element\AbstractElement $element
+     * @return mixed
+     */
+    public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
+    {
+        return $this->toHtml();
+    }
+
+    public function getMageVersion()
+    {
+        $mageVersion = $this->_metaData->getVersion();
+        $mageEdition = $this->_metaData->getEdition();
+        switch ($mageEdition) {
+            case 'Community':
+                $mageEdition = 'CE';
+                break;
+            case 'Enterprise':
+                $mageEdition = 'EE';
+                break;
+        }
+
+        return $mageEdition . ' ' . $mageVersion;
+    }
+
+    public function getModuleVersion()
+    {
+        $modules = $this->_loader->load();
+        $v = '';
+        if (isset($modules['MagePsycho_RegionCityPro'])) {
+            $v = $modules['MagePsycho_RegionCityPro']['setup_version'];
+        }
+        return $v;
+    }
+}

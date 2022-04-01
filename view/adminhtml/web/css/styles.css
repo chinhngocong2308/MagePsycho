@@ -1,0 +1,33 @@
+/* System Configuration */
+.config-nav .magepsycho-extensions .admin__page-nav-title::before {
+    content: '';
+    background-image: url(../images/logo-min.svg);
+    background-repeat: no-repeat;
+    background-size: auto 19px;
+    background-position: 0 0;
+    height: 19px;
+    width: 19px;
+    position: absolute;
+    top: 17px;
+    left: 14px;
+}
+.config-nav .magepsycho-extensions .admin__page-nav-title strong {
+    margin-left: 20px;
+}
+
+/* Menu */
+ul[role="menu"] [data-ui-id^="menu-magepsycho-regioncitypro-menu-section"] strong:before {
+    content: '';
+    background: url(../images/logo-min-grey.svg) left 50% no-repeat;
+    background-size: auto 22px;
+    background-position: 0 0;
+    height: 22px;
+    width: 22px;
+    margin-right: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.grid-locale-names-col:not(:last-child) {
+    margin-bottom: 15px;
+}

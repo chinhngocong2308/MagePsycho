@@ -1,0 +1,24 @@
+{
+  "name": "magepsycho/magento2-regioncitypro",
+  "description": "M2 Region City Manager",
+  "type": "magento2-module",
+  "version": "1.0.4",
+  "authors": [
+    {
+      "name": "Raj KB",
+      "email": "magepsycho@gmail.com",
+      "homepage": "https://www.magepsycho.com"
+    }
+  ],
+  "license": [
+    "OSL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "MagePsycho\\RegionCityPro\\": ""
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   MagePsycho
+ * @package    MagePsycho_RegionCityPro
+ * @author     Raj KB <magepsycho@gmail.com>
+ * @website    https://www.magepsycho.com
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/import.xsd">
+    <entity name="mp_directory_region" label="Directory Regions" model="MagePsycho\RegionCityPro\Model\Import\Region"
+            behaviorModel="MagePsycho\RegionCityPro\Model\Import\Source\Behavior\Custom" />
+    <entity name="mp_directory_city" label="Directory Cities" model="MagePsycho\RegionCityPro\Model\Import\City"
+            behaviorModel="MagePsycho\RegionCityPro\Model\Import\Source\Behavior\Custom" />
+</config>

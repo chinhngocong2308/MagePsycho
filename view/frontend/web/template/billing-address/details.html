@@ -1,0 +1,31 @@
+<!--
+/**
+ * @category   MagePsycho
+ * @package    MagePsycho_RegionCityPro
+ * @author     Raj KB <magepsycho@gmail.com>
+ * @website    https://www.magepsycho.com
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<div if="isAddressDetailsVisible() && currentBillingAddress()" class="billing-address-details">
+    <text args="currentBillingAddress().prefix"/> <text args="currentBillingAddress().firstname"/> <text args="currentBillingAddress().middlename"/>
+    <text args="currentBillingAddress().lastname"/> <text args="currentBillingAddress().suffix"/><br/>
+    <text args="_.values(currentBillingAddress().street).join(', ')"/><br/>
+    <text args="currentBillingAddress().extension_attributes.sub_district "/>, <text args="currentBillingAddress().city "/>, <span text="currentBillingAddress().region"></span><br/>
+    <text args="currentBillingAddress().postcode"/><br/>
+    <text args="getCountryName(currentBillingAddress().countryId)"/><br/>
+    <a if="currentBillingAddress().telephone" attr="'href': 'tel:' + currentBillingAddress().telephone" text="currentBillingAddress().telephone"></a><br/>
+
+    <each args="data: currentBillingAddress().customAttributes, as: 'element'">
+        <text args="$parent.getCustomAttributeLabel(element)"/>
+        <br/>
+    </each>
+
+    <button visible="!isAddressSameAsShipping()"
+            type="button"
+            class="action action-edit-address"
+            click="editAddress">
+        <span translate="'Edit'"></span>
+    </button>
+</div>
+
